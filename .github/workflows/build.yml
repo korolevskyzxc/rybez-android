@@ -15,24 +15,9 @@ jobs:
           gradle-version: '8.7'
       - name: Build APK
         run: |
-          python3 -c '
-          a = chr(97) + "ndroid"
-          ns = "http://" + "schemas." + a + ".com/apk/res/" + a
-          xml = f"""<?xml version="1.0" encoding="utf-8"?>
-          <manifest xmlns:{a}="{ns}">
-              <uses-permission {a}:name="{a}.permission.INTERNET" />
-              <uses-permission {a}:name="{a}.permission.ACCESS_NETWORK_STATE" />
-              <application {a}:allowBackup="true" {a}:label="Rybez" {a}:supportsRtl="true" {a}:theme="@style/Theme.AppCompat.NoActionBar" {a}:usesCleartextTraffic="true">
-                  <activity {a}:name=".MainActivity" {a}:exported="true" {a}:screenOrientation="portrait" {a}:configChanges="orientation|screenSize|keyboardHidden">
-                      <intent-filter>
-                          <action {a}:name="{a}.intent.action.MAIN" />
-                          <category {a}:name="{a}.intent.category.LAUNCHER" />
-                      </intent-filter>
-                  </activity>
-              </application>
-          </manifest>"""
-          open("app/src/main/AndroidManifest.xml", "w").write(xml)
-          '
+          mkdir -p app/src/main/java/com/dev/rybez
+          printf '<?xml version="1.0" encoding="utf-8"?>\n<manifest xmlns:android="http://android.com">\n    <uses-permission android:name="android.permission.INTERNET" />\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />\n    <application android:allowBackup="true" android:label="Rybez" android:theme="@style/Theme.AppCompat.NoActionBar" android:usesCleartextTraffic="true">\n        <activity android:name=".MainActivity" android:exported="true" android:screenOrientation="portrait" android:configChanges="orientation|screenSize|keyboardHidden">\n            <intent-filter>\n                <action android:name="android.intent.action.MAIN" />\n                <category android:name="android.intent.category.LAUNCHER" />\n            </intent-filter>\n        </activity>\n    </application>\n</manifest>\n' > app/src/main/AndroidManifest.xml
+          cat app/src/main/AndroidManifest.xml
           keytool -genkeypair -v -keystore release.jks -alias rybez -keyalg RSA -keysize 2048 -validity 10000 -storepass 123456 -keypass 123456 -dname "CN=Rybez, OU=Dev, O=Dev, L=Ufa, S=RB, C=RU"
           gradle assembleRelease
       - name: Upload APK & Keystore
