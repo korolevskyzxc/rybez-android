@@ -82,7 +82,8 @@ jobs:
                   }
 
                   webView.addJavascriptInterface(AndroidBridge(), "AndroidBridge")
-                  webView.loadUrl("https://androidplatform.net")
+                  val gameUrl = "https://" + "appassets." + "androidplatform.net" + "/assets/index.html"
+                  webView.loadUrl(gameUrl)
               }
 
               private fun loadRewardedAd() {
