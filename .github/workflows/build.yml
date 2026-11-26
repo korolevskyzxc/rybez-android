@@ -13,19 +13,20 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: '8.7'
-      - name: Fix Manifest & Build APK
+      - name: Build APK
         run: |
           python3 -c '
-          ns = "http://" + "://android.com"
+          a = chr(97) + "ndroid"
+          ns = "http://" + "schemas." + a + ".com/apk/res/" + a
           xml = f"""<?xml version="1.0" encoding="utf-8"?>
-          <manifest xmlns:android="{ns}">
-              <uses-permission android:name="android.permission.INTERNET" />
-              <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-              <application android:allowBackup="true" android:label="Rybez" android:supportsRtl="true" android:theme="@style/Theme.AppCompat.NoActionBar" android:usesCleartextTraffic="true">
-                  <activity android:name=".MainActivity" android:exported="true" android:screenOrientation="portrait" android:configChanges="orientation|screenSize|keyboardHidden">
+          <manifest xmlns:{a}="{ns}">
+              <uses-permission {a}:name="{a}.permission.INTERNET" />
+              <uses-permission {a}:name="{a}.permission.ACCESS_NETWORK_STATE" />
+              <application {a}:allowBackup="true" {a}:label="Rybez" {a}:supportsRtl="true" {a}:theme="@style/Theme.AppCompat.NoActionBar" {a}:usesCleartextTraffic="true">
+                  <activity {a}:name=".MainActivity" {a}:exported="true" {a}:screenOrientation="portrait" {a}:configChanges="orientation|screenSize|keyboardHidden">
                       <intent-filter>
-                          <action android:name="android.intent.action.MAIN" />
-                          <category android:name="android.intent.category.LAUNCHER" />
+                          <action {a}:name="{a}.intent.action.MAIN" />
+                          <category {a}:name="{a}.intent.category.LAUNCHER" />
                       </intent-filter>
                   </activity>
               </application>
